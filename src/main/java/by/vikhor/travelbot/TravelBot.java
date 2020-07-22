@@ -1,6 +1,6 @@
 package by.vikhor.travelbot;
 
-import by.vikhor.travelbot.config.BotConfigurationProperties;
+import by.vikhor.travelbot.botconfig.BotConfigurationProperties;
 import by.vikhor.travelbot.handler.BaseUpdateHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

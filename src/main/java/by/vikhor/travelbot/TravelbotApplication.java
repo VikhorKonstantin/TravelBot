@@ -1,6 +1,6 @@
 package by.vikhor.travelbot;
 
-import by.vikhor.travelbot.config.BotConfigurationProperties;
+import by.vikhor.travelbot.botconfig.BotConfigurationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
