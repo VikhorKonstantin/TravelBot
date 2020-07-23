@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - cd AWS/serverless-springboot2-example && mvn package -P assembly-zip
+      - mvn package -P assembly-zip
 cache:
   paths:
     - '/root/.m2/**/*'
