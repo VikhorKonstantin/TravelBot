@@ -1,7 +1,7 @@
 import boto3
 import time
 client = boto3.client(service_name='codebuild', region_name='us-east-2')
-new_build = client.start_build(projectName='Build')
+new_build = client.start_build(projectName='TravelBot')
 buildId = new_build['build']['id']
 
 buildSucceeded = False
