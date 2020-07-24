@@ -8,12 +8,12 @@ Resources:
       StageName: prod
       BinaryMediaTypes:
         - '*/*'
-  ImageApiFunction:
+  TravelBotApiFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: by.vikhor.travelbot.appconfig.StreamLambdaHandler::handleRequest
       Runtime: java11
-      CodeUri: target/travelbot-0.0.1-SNAPSHOT-lambda-package.zip
+      CodeUri: s3://travel-bot-package/TravelBot/target/travelbot-0.0.1-SNAPSHOT-lambda-package.zip
       MemorySize: 1512
       Policies: AWSLambdaBasicExecutionRole
       Role: arn:aws:iam::666899502235:role/service-role/VikhorTelegramBot-role-jo7bkryo

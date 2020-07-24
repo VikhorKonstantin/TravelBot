@@ -1,7 +1,7 @@
+#!/bin/bash
 echo delete stack
-aws cloudformation delete-stack --stack-name ImageApiStack
+aws cloudformation delete-stack --stack-name TravelBotStack
 echo run build
-python build.py
+python3 build.py
 echo deploy
-aws cloudformation deploy --template-file output-sam.yaml --stack-name ImageApiStack --capabilities CAPABILITY_IAM
-pause
+aws cloudformation deploy --template-file "sam.yaml" --stack-name "TravelBotStack" --capabilities "CAPABILITY_IAM"

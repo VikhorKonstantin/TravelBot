@@ -3,7 +3,7 @@ version: 0.2
 phases:
   build:
     commands:
-      - mvn package -P assembly-zip
+      - mvn package
 cache:
   paths:
     - '/root/.m2/**/*'
