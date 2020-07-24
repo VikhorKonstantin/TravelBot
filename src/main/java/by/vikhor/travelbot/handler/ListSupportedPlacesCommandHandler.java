@@ -19,7 +19,7 @@ public class ListSupportedPlacesCommandHandler implements UpdateHandler<Long, Se
 
     @Override
     public SendMessage handleUpdate(Long chatId) {
-        String message = String.join("/n", placesToVisitService.findListOfSupportedPlaces());
+        String message = String.join("\n", placesToVisitService.findListOfSupportedPlaces());
         SendMessage sendMessage = new SendMessage();
         sendMessage.setText(message);
         sendMessage.setChatId(chatId);
