@@ -9,4 +9,4 @@ cache:
     - '/root/.m2/**/*'
 artifacts:
   files:
-    - 'target/travelbot-0.0.1-SNAPSHOT.jar'
+    - 'target/travelbot-0.0.1-SNAPSHOT-lambda-package.zip'

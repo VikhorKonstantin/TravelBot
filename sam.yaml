@@ -13,7 +13,7 @@ Resources:
     Properties:
       Handler: by.vikhor.travelbot.appconfig.StreamLambdaHandler::handleRequest
       Runtime: java11
-      CodeUri: s3://travel-bot-package/TravelBot/target/travelbot-0.0.1-SNAPSHOT.jar
+      CodeUri: s3://travel-bot-package/TravelBot/target/travelbot-0.0.1-SNAPSHOT-lambda-package.zip
       MemorySize: 1512
       Policies: AWSLambdaBasicExecutionRole
       Role: arn:aws:iam::666899502235:role/service-role/VikhorTelegramBot-role-jo7bkryo
