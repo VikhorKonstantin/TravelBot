@@ -1,37 +1,33 @@
 package by.vikhor.travelbot.handler;
 
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.util.Map;
+import static by.vikhor.travelbot.handler.HandlersConstants.ABOUT_BUTTON;
 
 @Service
-@Getter
-public class CallbackQueryHandler implements UpdateHandler {
-    private final Map<Event, UpdateHandler> handlerMap;
+public class CallbackQueryHandler implements UpdateHandler<CallbackQuery, SendMessage> {
+
+    private final AboutCommandHandler aboutCommandHandler;
+    private final ListSupportedPlacesCommandHandler listSupportedPlacesCommandHandler;
 
     @Autowired
-    public CallbackQueryHandler(Map<Event, UpdateHandler> handlerMap) {
-        this.handlerMap = handlerMap;
+    public CallbackQueryHandler(AboutCommandHandler aboutCommandHandler,
+                                ListSupportedPlacesCommandHandler listSupportedPlacesCommandHandler) {
+        this.aboutCommandHandler = aboutCommandHandler;
+        this.listSupportedPlacesCommandHandler = listSupportedPlacesCommandHandler;
     }
 
     @Override
-    public BotApiMethod<?> handleUpdate(Update input) {
-        CallbackQuery callbackQuery = input.getCallbackQuery();
+    public SendMessage handleUpdate(CallbackQuery callbackQuery) {
         String buttonData = callbackQuery.getData();
-        if (buttonData.equals(Event.ABOUT_CALLBACK.getCommand())) {
-            return delegate(Event.ABOUT_CALLBACK, input);
+        if (buttonData.equals(ABOUT_BUTTON)) {
+            return aboutCommandHandler.handleUpdate(callbackQuery.getMessage().getChatId());
         } else {
-            return delegate(Event.LIST_SUPPORTED_COUNTRIES_CALLBACK, input);
+            return listSupportedPlacesCommandHandler.handleUpdate(callbackQuery.getMessage().getChatId());
         }
     }
 
-    @Override
-    public Event getResponsibleFor() {
-        return Event.GENERIC_CALLBACK_QUERY;
-    }
 }

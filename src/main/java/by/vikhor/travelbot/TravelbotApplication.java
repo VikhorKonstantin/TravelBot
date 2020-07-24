@@ -10,9 +10,9 @@ import org.telegram.telegrambots.ApiContextInitializer;
 @EnableConfigurationProperties(BotConfigurationProperties.class)
 public class TravelbotApplication {
 
-	public static void main(String[] args) {
-		ApiContextInitializer.init();
-		SpringApplication.run(TravelbotApplication.class, args);
-	}
+    public static void main(String[] args) {
+        ApiContextInitializer.init();
+        SpringApplication.run(TravelbotApplication.class, args);
+    }
 
 }

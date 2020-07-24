@@ -1,20 +1,21 @@
-package by.vikhor.travelbot.infoservice.impl;
+package by.vikhor.travelbot.service.placeinfo.impl;
 
 import by.vikhor.travelbot.dto.PlaceInfoDto;
-import by.vikhor.travelbot.infoservice.PlacesToVisitService;
+import by.vikhor.travelbot.service.placeinfo.PlacesToVisitService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlacesToVisitServiceImpl implements PlacesToVisitService {
     @Override
-    public PlaceInfoDto findPlaceInfoByName(String name) {
+    public Optional<PlaceInfoDto> findPlaceInfoByName(String name) {
         PlaceInfoDto placeInfoDto = new PlaceInfoDto();
         placeInfoDto.setDescription("Norm place");
         placeInfoDto.setName("Place");
         placeInfoDto.setRating(5);
-        return placeInfoDto;
+        return Optional.of(placeInfoDto);
     }
 
     @Override
