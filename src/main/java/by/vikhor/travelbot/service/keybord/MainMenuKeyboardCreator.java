@@ -2,26 +2,25 @@ package by.vikhor.travelbot.service.keybord;
 
 import by.vikhor.travelbot.handler.HandlersConstants;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.List;
 
 @Service
 public class MainMenuKeyboardCreator {
 
-    public InlineKeyboardMarkup createMainMenuKeyboard() {
-        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+    public ReplyKeyboardMarkup createMainMenuKeyboard() {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setSelective(true);
 
-        inlineKeyboardMarkup.setKeyboard(List.of(prepareButtonRow(HandlersConstants.ABOUT_BUTTON),
-                prepareButtonRow(HandlersConstants.SUPPORTED_PLACES_BUTTON)));
-        return inlineKeyboardMarkup;
-    }
-
-    private List<InlineKeyboardButton> prepareButtonRow(String buttonText) {
-        InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
-        inlineKeyboardButton.setCallbackData(buttonText);
-        inlineKeyboardButton.setText(buttonText);
-        return List.of(inlineKeyboardButton);
+        KeyboardRow firstRow = new KeyboardRow();
+        firstRow.add(HandlersConstants.SUPPORTED_PLACES_BUTTON);
+        KeyboardRow secondRow = new KeyboardRow();
+        secondRow.add(HandlersConstants.ABOUT_BUTTON);
+        replyKeyboardMarkup.setKeyboard(List.of(firstRow, secondRow));
+        return replyKeyboardMarkup;
     }
 }
