@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Optional;
 
 @Service
-public class PlaceInfoRequestHandler implements UpdateHandler<Message, SendMessage> {
+public class PlaceInfoRequestHandler implements UpdateHandler<SendMessage> {
     private final PlacesToVisitService placesToVisitService;
 
     @Autowired
@@ -18,9 +19,16 @@ public class PlaceInfoRequestHandler implements UpdateHandler<Message, SendMessa
         this.placesToVisitService = placesToVisitService;
     }
 
+
+    private String prepareInfoMessage(PlaceInfoDto placeInfoDto) {
+        return String.format("Name: %s%nRating: %d%nDescription: %s", placeInfoDto.getName(),
+                placeInfoDto.getRating(), placeInfoDto.getDescription());
+    }
+
     @Override
-    public SendMessage handleUpdate(Message message) {
+    public SendMessage handleUpdate(Update update) {
         SendMessage sendMessage = new SendMessage();
+        Message message = update.getMessage();
         sendMessage.setChatId(message.getChatId());
         Optional<PlaceInfoDto> infoDtoOptional = placesToVisitService.findPlaceInfoByName(message.getText());
         if (infoDtoOptional.isPresent()) {
@@ -31,8 +39,8 @@ public class PlaceInfoRequestHandler implements UpdateHandler<Message, SendMessa
         return sendMessage;
     }
 
-    private String prepareInfoMessage(PlaceInfoDto placeInfoDto) {
-        return String.format("Name: %s%nRating: %d%nDescription: %s", placeInfoDto.getName(),
-                placeInfoDto.getRating(), placeInfoDto.getDescription());
+    @Override
+    public Command responsibleFor() {
+        return null;
     }
 }

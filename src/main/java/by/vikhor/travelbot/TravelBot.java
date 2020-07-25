@@ -1,7 +1,7 @@
 package by.vikhor.travelbot;
 
 import by.vikhor.travelbot.botconfig.BotConfigurationProperties;
-import by.vikhor.travelbot.handler.BaseUpdateHandler;
+import by.vikhor.travelbot.handler.UpdateProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
@@ -15,17 +15,17 @@ import java.net.UnknownHostException;
 public class TravelBot extends TelegramWebhookBot {
 
     private final BotConfigurationProperties botConfigurationProperties;
-    private final BaseUpdateHandler baseUpdateHandler;
+    private final UpdateProcessor updateProcessor;
 
     @Autowired
-    public TravelBot(BotConfigurationProperties botConfigurationProperties, BaseUpdateHandler baseUpdateHandler) {
+    public TravelBot(BotConfigurationProperties botConfigurationProperties, UpdateProcessor updateProcessor) {
         this.botConfigurationProperties = botConfigurationProperties;
-        this.baseUpdateHandler = baseUpdateHandler;
+        this.updateProcessor = updateProcessor;
     }
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-        return baseUpdateHandler.handleUpdate(update);
+        return updateProcessor.processUpdate(update);
     }
 
     @Override
