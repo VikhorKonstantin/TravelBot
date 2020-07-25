@@ -1,29 +1,26 @@
 package by.vikhor.travelbot.handler;
 
-import by.vikhor.travelbot.service.keybord.MainMenuKeyboardCreator;
 import by.vikhor.travelbot.service.placeinfo.PlacesToVisitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 
 @Service
-public class ListSupportedPlacesCommandHandler implements UpdateHandler<Long, SendMessage> {
+public class ListSupportedPlacesCommandHandler implements UpdateHandler<String, AnswerCallbackQuery> {
 
     private final PlacesToVisitService placesToVisitService;
-    private final MainMenuKeyboardCreator mainMenuKeyboardCreator;
 
-    public ListSupportedPlacesCommandHandler(PlacesToVisitService placesToVisitService,
-                                             MainMenuKeyboardCreator mainMenuKeyboardCreator) {
+    @Autowired
+    public ListSupportedPlacesCommandHandler(PlacesToVisitService placesToVisitService) {
         this.placesToVisitService = placesToVisitService;
-        this.mainMenuKeyboardCreator = mainMenuKeyboardCreator;
     }
 
     @Override
-    public SendMessage handleUpdate(Long chatId) {
-        String message = String.join("\n", placesToVisitService.findListOfSupportedPlaces());
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setText(message);
-        sendMessage.setChatId(chatId);
-        sendMessage.setReplyMarkup(mainMenuKeyboardCreator.createMainMenuKeyboard());
-        return sendMessage;
+    public AnswerCallbackQuery handleUpdate(String callbackQueryId) {
+        String text = String.join("\n", placesToVisitService.findListOfSupportedPlaces());
+        AnswerCallbackQuery answerCallbackQuery = new AnswerCallbackQuery();
+        answerCallbackQuery.setText(text);
+        answerCallbackQuery.setCallbackQueryId(callbackQueryId);
+        return answerCallbackQuery;
     }
 }

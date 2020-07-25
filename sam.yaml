@@ -33,4 +33,4 @@ Resources:
 Outputs:
   ProdDataEndpoint:
     Description: "API prod stage endpoint"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/prod/"
+    Value: !Sub "https://${BotApi}.execute-api.${AWS::Region}.amazonaws.com/prod"
