@@ -28,6 +28,6 @@ public enum Command {
     }
 
     public static Optional<Command> findByStringRepresentation(String stringRepresentation) {
-        return Optional.of(STRING_VALUE_MAP.get(stringRepresentation));
+        return Optional.ofNullable(STRING_VALUE_MAP.get(stringRepresentation));
     }
 }

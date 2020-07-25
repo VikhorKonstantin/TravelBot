@@ -21,12 +21,6 @@ public class PlaceInfoRequestHandler implements UpdateHandler<SendMessage> {
         this.placesToVisitService = placesToVisitService;
     }
 
-
-    private String prepareInfoMessage(PlaceInfoDto placeInfoDto) {
-        return String.format("Name: %s%nRating: %d%nDescription: %s", placeInfoDto.getName(),
-                placeInfoDto.getRating(), placeInfoDto.getDescription());
-    }
-
     @Override
     public SendMessage handleUpdate(Update update) {
         SendMessage sendMessage = new SendMessage();
@@ -44,5 +38,10 @@ public class PlaceInfoRequestHandler implements UpdateHandler<SendMessage> {
     @Override
     public Command responsibleFor() {
         return PLACE_INFO;
+    }
+
+    private String prepareInfoMessage(PlaceInfoDto placeInfoDto) {
+        return String.format("Name: %s%nRating: %d%nDescription: %s", placeInfoDto.getName(),
+                placeInfoDto.getRating(), placeInfoDto.getDescription());
     }
 }
