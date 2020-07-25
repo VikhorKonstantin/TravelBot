@@ -30,3 +30,7 @@ Resources:
             RestApiId: !Ref BotApi
             Path: /
             Method: POST
+Outputs:
+  ProdDataEndpoint:
+    Description: "API prod stage endpoint"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/prod/"
