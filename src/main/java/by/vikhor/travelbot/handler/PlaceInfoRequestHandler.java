@@ -10,6 +10,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Optional;
 
+import static by.vikhor.travelbot.handler.Command.PLACE_INFO;
+
 @Service
 public class PlaceInfoRequestHandler implements UpdateHandler<SendMessage> {
     private final PlacesToVisitService placesToVisitService;
@@ -41,6 +43,6 @@ public class PlaceInfoRequestHandler implements UpdateHandler<SendMessage> {
 
     @Override
     public Command responsibleFor() {
-        return null;
+        return PLACE_INFO;
     }
 }
