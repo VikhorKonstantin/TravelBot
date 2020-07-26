@@ -2,6 +2,8 @@ package by.vikhor.travelbot.travelapi;
 
 import by.vikhor.travelbot.botconfig.BotConfigurationProperties;
 import by.vikhor.travelbot.dto.PlaceInfoDto;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
@@ -10,6 +12,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -37,23 +40,37 @@ public class TravelApiClient {
                 new ParameterizedTypeReference<CollectionModel<PlaceInfoDto>>() {
                 });
         CollectionModel<PlaceInfoDto> body = response.getBody();
-        if (body != null) {
-            return new ArrayList<>(body.getContent());
-        } else {
-            return Collections.emptyList();
-        }
+        return wrapListToOptional(body);
     }
 
     public Optional<PlaceInfoDto> findPlaceInfoByPlaceName(String name) {
-        ResponseEntity<EntityModel<PlaceInfoDto>> response = restTemplate.exchange(createFindByNameUrl(name),
-                HttpMethod.GET, null,
-                new ParameterizedTypeReference<EntityModel<PlaceInfoDto>>() {
-                });
-        EntityModel<PlaceInfoDto> body = response.getBody();
+        try {
+            ResponseEntity<EntityModel<PlaceInfoDto>> response = restTemplate.exchange(createFindByNameUrl(name),
+                    HttpMethod.GET, null,
+                    new ParameterizedTypeReference<EntityModel<PlaceInfoDto>>() {
+                    });
+            EntityModel<PlaceInfoDto> body = response.getBody();
+            return wrapEntityToOptional(body);
+        } catch (HttpClientErrorException e) {
+            return Optional.empty();
+        }
+    }
+
+    @NotNull
+    private Optional<PlaceInfoDto> wrapEntityToOptional(@Nullable EntityModel<PlaceInfoDto> body) {
         if (body != null) {
             return Optional.ofNullable(body.getContent());
         } else {
             return Optional.empty();
+        }
+    }
+
+    @NotNull
+    private List<PlaceInfoDto> wrapListToOptional(@Nullable CollectionModel<PlaceInfoDto> body) {
+        if (body != null) {
+            return new ArrayList<>(body.getContent());
+        } else {
+            return Collections.emptyList();
         }
     }
 
