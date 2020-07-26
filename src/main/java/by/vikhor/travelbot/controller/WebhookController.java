@@ -1,4 +1,4 @@
-package by.vikhor.travelbot.api;
+package by.vikhor.travelbot.controller;
 
 import by.vikhor.travelbot.TravelBot;
 import org.springframework.beans.factory.annotation.Autowired;

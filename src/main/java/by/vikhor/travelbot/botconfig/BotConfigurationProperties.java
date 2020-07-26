@@ -9,4 +9,5 @@ public class BotConfigurationProperties {
     private String username;
     private String token;
     private Integer port;
+    private String travelApiUrl;
 }
