@@ -7,12 +7,14 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 import static by.vikhor.travelbot.travelapi.TravelApiConstants.PLACES_RESOURCE;
 
+@Service
 public class TravelApiClient {
     private final RestTemplateBuilder restTemplateBuilder;
     private final BotConfigurationProperties configurationProperties;
