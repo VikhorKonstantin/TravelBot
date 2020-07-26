@@ -22,11 +22,7 @@ public class PlacesToVisitServiceImpl implements PlacesToVisitService {
 
     @Override
     public Optional<PlaceInfoDto> findPlaceInfoByName(String name) {
-        PlaceInfoDto placeInfoDto = new PlaceInfoDto();
-        placeInfoDto.setDescription("Norm place");
-        placeInfoDto.setName("Place");
-        placeInfoDto.setRating(5);
-        return Optional.of(placeInfoDto);
+        return travelApiClient.findPlaceInfoByPlaceName(name.trim());
     }
 
     @Override
