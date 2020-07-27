@@ -1,4 +1,4 @@
-package by.vikhor.travelbot.config;
+package by.vikhor.travelbot.botconfig;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,4 +9,5 @@ public class BotConfigurationProperties {
     private String username;
     private String token;
     private Integer port;
+    private String travelApiUrl;
 }

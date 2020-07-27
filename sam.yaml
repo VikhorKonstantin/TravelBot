@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: TravelBot
+Resources:
+  BotApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      BinaryMediaTypes:
+        - '*/*'
+  TravelBotApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: by.vikhor.travelbot.appconfig.StreamLambdaHandler::handleRequest
+      Runtime: java11
+      CodeUri: s3://travel-bot-package/TravelBot/target/travelbot-0.0.1-SNAPSHOT-lambda-package.zip
+      MemorySize: 1512
+      Policies: AWSLambdaBasicExecutionRole
+      Role: arn:aws:iam::666899502235:role/service-role/VikhorTelegramBot-role-jo7bkryo
+      Timeout: 900
+      Environment:
+        Variables:
+          BOT_PORT: 8080
+          BOT_TOKEN: '1243361294:AAFk6iunCqkULr8z5D82dkidf2z3KPGJVYc'
+          BOT_USERNAME: '@vikhor_travel_bot'
+          API_URL: 'http://travelapi-env.eba-xmtprpjv.us-east-2.elasticbeanstalk.com'
+      Events:
+        Post:
+          Type: Api
+          Properties:
+            RestApiId: !Ref BotApi
+            Path: /
+            Method: POST
+Outputs:
+  ProdDataEndpoint:
+    Description: "API prod stage endpoint"
+    Value: !Sub "https://${BotApi}.execute-api.${AWS::Region}.amazonaws.com/prod"

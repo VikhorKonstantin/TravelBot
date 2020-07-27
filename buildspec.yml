@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - mvn package
+cache:
+  paths:
+    - '/root/.m2/**/*'
+artifacts:
+  files:
+    - 'target/travelbot-0.0.1-SNAPSHOT-lambda-package.zip'
