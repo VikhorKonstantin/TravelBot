@@ -92,7 +92,7 @@
         <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.7</version>
         </dependency>
     </dependencies>
     <build>
